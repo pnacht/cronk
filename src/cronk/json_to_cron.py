@@ -15,6 +15,11 @@ def json_to_cron(text: str) -> list[str]:
         return output
 
     output.append("")  # blank line between intro and first command
+    output.append("")  # blank line between intro and first command
+    output.append("")  # blank line between intro and first command
+    output.append("")  # blank line between intro and first command
+    output.append("")  # blank line between intro and first command
+    output.append("")  # blank line between intro and first command
     output.extend(_routine_to_cron(js.routines))
     output.extend(js.outro)
 
