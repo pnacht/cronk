@@ -1,5 +1,5 @@
 import re
-from typing import Tuple
+from typing import List, Tuple
 
 from loguru import logger
 
@@ -58,7 +58,7 @@ def cron_to_json(text: str) -> Json:
     0 0 0 * * echo Hello World
     ```
     """
-    logger.debug(f"Converting cron file to json")
+    # logger.debug(f"Converting cron file to json")
 
     lines = text.splitlines()
 
@@ -83,14 +83,14 @@ def _is_command(s: str) -> bool:
     return s != "" and not bool(re.search("^ *#", s))
 
 
-def _get_command_line_idx(lines: list[str]) -> list[int]:
+def _get_command_line_idx(lines: List[str]) -> List[int]:
     line_types = [_is_command(line) for line in lines]
     return [i for i, is_command_line in enumerate(line_types) if is_command_line]
 
 
 def _split_comments(
-    lines: list[str], command_idx: list[int]
-) -> Tuple[list[str], list[list[str]], list[str]]:
+    lines: List[str], command_idx: List[int]
+) -> Tuple[List[str], List[List[str]], List[str]]:
     end_of_intro = 0
     for i, line in enumerate(lines[: command_idx[0]]):
         if line == "":
