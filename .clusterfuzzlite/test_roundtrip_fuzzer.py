@@ -1,10 +1,12 @@
 import sys
+from json import dumps, load
 
 import atheris
 from hypothesis import given
 from hypothesis import strategies as st
 
-from cronk import cron_to_json, json_to_cron
+from cronk.cron_to_json import cron_to_json
+from cronk.json_to_cron import json_to_cron
 
 JSON_ATOMS = st.one_of(
     st.none(),
@@ -19,12 +21,25 @@ JSON_OBJECTS = st.recursive(
 )
 
 
-@given(json=JSON_OBJECTS)
 @atheris.instrument_func
-def test_json_to_cron_to_json_roundtrip(json: str) -> None:
-    cron_text = "\n".join(json_to_cron(text=json))
-    output = cron_to_json(text=cron_text)
-    assert json == output
+@given(json=JSON_OBJECTS)
+def test_json_to_cron_to_json_roundtrip(json: dict) -> None:
+    print(json)
+    txt = json
+    if json is not None:
+        txt = dumps(json, default=lambda o: o.__dict__, indent=4)
+
+    try:
+        cron_text = "\n".join(json_to_cron(text=txt))
+        output = cron_to_json(text=cron_text)
+    except TypeError as err:
+        assert str(err) == "Must be str type"
+        return
+    except ValueError as err:
+        assert "schema.json" in str(err)
+        return
+
+    assert json == output.__dict__
 
 
 if __name__ == "__main__":

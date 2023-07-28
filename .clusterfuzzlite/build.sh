@@ -25,3 +25,4 @@ ASAN_OPTIONS=\$ASAN_OPTIONS:symbolize=1:external_symbolizer_path=\$this_dir/llvm
   chmod +x $OUT/$fuzzer_basename
 done
 
+cp $SRC/*.dict $OUT/
