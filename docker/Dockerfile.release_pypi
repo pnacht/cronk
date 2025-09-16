@@ -1,0 +1,19 @@
+FROM python:3.13-slim-bullseye AS cronk-pypi-base
+
+RUN apt update && apt install -y --no-install-recommends curl build-essential && rm -rf /var/lib/apt/lists/*
+RUN curl -sSL https://install.python-poetry.org | python -
+ENV PATH="/root/.local/bin:${PATH}"
+
+WORKDIR /repository
+COPY . /repository
+
+# Make sure there's no old dist file or venv
+RUN rm -rf /repository/dist /repository/.venv
+
+FROM cronk-pypi-base
+
+RUN poetry build
+RUN poetry add twine --dev
+
+ENV TWINE_USERNAME="__token__"
+ENTRYPOINT ["poetry", "run", "twine", "upload", "--verbose", "--skip-existing", "dist/*"]

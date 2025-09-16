@@ -1,9 +1,9 @@
 [project]
 name = "cronk"
-version = "0.0.15"
+version = "0.0.19rc12"
 description = "A crontab-json translator"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.13.3"
 keywords = ["json", "cron", "crontab"]
 
 authors = [
@@ -22,12 +22,7 @@ classifiers = [  # Optional
   "Intended Audience :: Education",
   "Topic :: Software Development",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.7",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.13",
 ]
 
 dependencies = [
