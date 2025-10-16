@@ -17,7 +17,7 @@ pip install -U \
 python3 -m build --wheel
 
 twine upload \
-    --repository-url https://us-python.pkg.dev/oss-exit-gate-dev/cronk--testpypi \
+    --repository-url "https://us-python.pkg.dev/oss-exit-gate-$ENV/cronk--$REGISTRY" \
     --verbose \
     dist/*
 
