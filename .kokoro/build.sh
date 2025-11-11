@@ -14,7 +14,7 @@ pip install -U \
 pip install -U \
     keyrings.google-artifactregistry-auth > /dev/null
 
-python3 -m build --wheel
+python3 -m build
 
 twine upload \
     --repository-url "https://us-python.pkg.dev/oss-exit-gate-$ENV/cronk--$REGISTRY" \
