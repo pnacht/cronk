@@ -1,0 +1,22 @@
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-python@v6
+      - run: |
+          mkdir dist
+
+          for i in {001..200}; do
+            dd if=/dev/random of=dist/${i}.whl bs=100k count=1
+          done
+
+          pip install pypi-attestations
+          pypi-attestations sign --verbose dist/*
